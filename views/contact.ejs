@@ -1,0 +1,46 @@
+<%- include('../layouts/header') %>
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">daftar contact</h1>
+            <p class="lead">contact mahasiswa</p>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Nama</th>
+                <th scope="col">noHP</th>
+                <th scope="col">All</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% if (contacts.length <=0) { %>
+                <tr>
+                    <td colspan="2">
+                        <div class="alert alert-danger" role="alert">
+                            data anda kosong
+                        </div>
+                    </td>
+                </tr>
+                <% } %>
+                    <% contacts.forEach((a,b)=> { %>
+                        <tr>
+                            <th scope="row">
+                                <%= b+1 %>
+                            </th>
+                            <td>
+                                <%= a.nama %>
+                            </td>
+                            <td>
+                                <%= a.noHP %>
+                            </td>
+                            <td><button type="button" class="btn btn-dark badge rounded-pill text-bg-dark-info"><a
+                                        href="/contact/<%= a.nama %> "><i
+                                            class="bi bi-card-text"></i>detail</a></button>
+                            </td>
+                        </tr>
+                        <% }) %>
+        </tbody>
+    </table>
+    <%- include('../layouts/footer') %>

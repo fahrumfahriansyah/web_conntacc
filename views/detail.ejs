@@ -1,0 +1,25 @@
+<%- include('../layouts/header') %>
+    <% if (!contacts) { %>
+        <div class="alert alert-danger" role="alert">
+            maaf alamat anda salah
+            <br>
+            <a href="/contact">kembali</a>
+        </div>
+        <% } else{ %>
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <%= contacts.nama %>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted">
+                        <%= contacts.noHP %>
+                    </h6>
+                    <br>
+                    <p class="card-text">
+                        <%= contacts.email %>
+                    </p>
+                    <a href="/contact" class="card-link">kembali kehalaman contact</a>
+                </div>
+            </div>
+            <% } %>
+                <%- include('../layouts/footer') %>
