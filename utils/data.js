@@ -18,6 +18,23 @@ function namaData(nama) {
     const contacts = contact.find((a) => a.nama === nama)
     return contacts
 }
+//! membuat json menajdin string json
+const arr = (contacts) => {
+    //! ini mengunakan file sync
+    fs.writeFileSync('./data/contact.json', JSON.stringify(contacts))
+}
 
+//!push ke json dan menampilkanya
+const addContact = (contact) => {
+    const contacts = masukJSON()
+    contacts.push(contact)
+    arr(contacts)
+}
 
-module.exports = { masukJSON, namaData }
+const namaValid = (nama) => {
+    const contact = masukJSON()
+    const contacts = contact.find((a) => a.nama === nama)
+    return contacts
+}
+
+module.exports = { masukJSON, namaData, addContact, namaValid }
