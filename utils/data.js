@@ -19,7 +19,7 @@ function namaData(nama) {
     return contacts
 }
 //! membuat json menajdin string json
-const arr = (contacts) => {
+const ubahJson = (contacts) => {
     //! ini mengunakan file sync
     fs.writeFileSync('./data/contact.json', JSON.stringify(contacts))
 }
@@ -28,7 +28,7 @@ const arr = (contacts) => {
 const addContact = (contact) => {
     const contacts = masukJSON()
     contacts.push(contact)
-    arr(contacts)
+    ubahJson(contacts)
 }
 
 const namaValid = (nama) => {
@@ -36,5 +36,19 @@ const namaValid = (nama) => {
     const contacts = contact.find((a) => a.nama === nama)
     return contacts
 }
+const deleteContact = (nama) => {
+    const contact = masukJSON()
+    const contacts = contact.filter(a => a.nama !== nama)
+    ubahJson(contacts)
+}
 
-module.exports = { masukJSON, namaData, addContact, namaValid }
+const updateContact = (contactBaru) => {
+    const contact = masukJSON()
+    //hilangkan kontak lama yang namanya sama dengan old nama
+    const filterd = contact.filter((a) => a.nama !== contactBaru.oldNama)
+    delete contactBaru.oldNama
+    filterd.push(contactBaru)
+    ubahJson(filterd)
+}
+
+module.exports = { masukJSON, namaData, addContact, namaValid, deleteContact, updateContact }

@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const { check, body, validationResult } = require('express-validator');
-const { masukJSON, namaData, addContact, namaValid } = require('./utils/data')
+const { masukJSON, namaData, addContact, namaValid, deleteContact, updateContact } = require('./utils/data')
 const cookieParser = require('cookie-parser')
 const session = require('express-session')
 const flash = require('connect-flash')
@@ -76,6 +76,30 @@ app.get('/contact/add', (req, res) => {
     })
 })
 
+app.get('/contact/delete/:nama', (req, res) => {
+    const contact = namaValid(req.params.nama)
+
+    if (!contact) {
+        res.status(404)
+        res.send('404')
+    } else {
+        deleteContact(req.params.nama)
+        req.flash('msg', 'data anda telah di hapus')
+        //! lalu file json akan kita lempar kek get dan di eskusi seperti biasa
+        res.redirect('/contact')
+    }
+})
+app.get('/contact/edit/:nama', (req, res) => {
+    const contact = namaValid(req.params.nama)
+
+    res.render('edit_kontak', {
+        judul: 'web edit',
+        contact
+    })
+
+})
+
+
 app.get('/contact/:nama', (req, res) => {
     const contacts = namaData(req.params.nama)
     res.render('detail', {
@@ -109,7 +133,33 @@ app.post('/contact', [
         //! lalu file json akan kita lempar kek get dan di eskusi seperti biasa
         res.redirect('/contact')
     })
-
+//!proses ubah data
+app.post('/contact/update', [
+    body('nama').custom((value, { req }) => {
+        const custom = namaValid(value)
+        if (value !== req.body.oldNama && custom) {
+            throw new Error('nama suadah digunakan')
+        }
+        return true
+    }),
+    check('email', 'nomor email tidak valid').isEmail(),
+    check('noHP', 'nomor hp tidak valid').isMobilePhone("id-ID")], (req, res) => {
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            // return res.status(400).json({ errors: errors.array() });
+            res.render('edit_kontak', {
+                judul: 'web edit',
+                errors: errors.array(),
+                contact: req.body
+            })
+        }
+        //! ini akan di esekusi dan mengubah file json
+        updateContact(req.body)
+        req.flash('msg', 'data anda telah di tambahkan')
+        //! lalu file json akan kita lempar kek get dan di eskusi seperti biasa
+        res.redirect('/contact')
+    })
+//!proses ubah data
 app.get('/index', (req, res) => {
     res.render('index', {
         judul: 'web index',
