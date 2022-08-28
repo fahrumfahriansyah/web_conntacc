@@ -1,1 +1,28 @@
-[{"nama":"dsadasda","email":"fahrumfahriansyah1@gmail.com","noHP":"085729321313 "},{"nama":"iyan","email":"fahrumfahriansyah@gmail.com","noHP":"085729321313"},{"nama":"fahri","email":"fahrumfahriansyah@gmail.com","noHP":"085729321313"},{" oldNama":"iyan ","nama":"rian","email":"fahrumfahriansyah@gmail.com","noHP":"085648392"}]
+[
+    {
+        "nama": "dsadasda",
+        "email": "fahrumfahriansyah1@gmail.com",
+        "noHP": "085729321313 "
+    },
+    {
+        "nama": "iyan",
+        "email": "fahrumfahriansyah@gmail.com",
+        "noHP": "085729321313"
+    },
+    {
+        "nama": "fahri",
+        "email": "fahrumfahriansyah@gmail.com",
+        "noHP": "085729321313"
+    },
+    {
+        " oldNama": "iyan ",
+        "nama": "rian",
+        "email": "fahrumfahriansyah@gmail.com",
+        "noHP": "085648392"
+    },
+    {
+        "nama": "fahriansyah",
+        "email": "fahrumfahriansyah@gmail.com",
+        "noHP": "085729321313"
+    }
+]
